@@ -1,0 +1,15 @@
+name: Test
+
+on:
+  workflow_run:
+    workflows: ["Build Artifacts"]
+    types:
+      - completed
+
+jobs:
+  run-tests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: self-hosted
+    steps:
+      - name: Run Tests
+        run: echo "Running tests..."

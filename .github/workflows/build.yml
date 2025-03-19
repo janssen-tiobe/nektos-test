@@ -1,0 +1,14 @@
+name: Build Artifacts
+
+on: push
+
+jobs:
+  gitversion:
+    uses: ./.github/workflows/gitversion.yml
+  build:
+    runs-on: self-hosted
+    needs: gitversion
+    steps:
+      - name: Set artifact name
+        id: setname
+        run: echo "fullSemVer=${{needs.gitversion.outputs.fullSemVer}}" >> $GITHUB_OUTPUT

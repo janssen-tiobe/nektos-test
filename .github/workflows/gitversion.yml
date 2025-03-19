@@ -1,0 +1,17 @@
+name: git version
+
+on:
+  workflow_call:
+    outputs:
+      fullSemVer:
+        value: ${{jobs.gitversion.outputs.fullSemVer}}
+
+jobs:
+  gitversion:
+    runs-on: self-hosted
+    outputs:
+      fullSemVer: ${{steps.setname.outputs.fullSemVer}}
+    steps:
+      - name: Set artifact name
+        id: setname
+        run: echo "fullSemVer=1.0.0" >> $GITHUB_OUTPUT
